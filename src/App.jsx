@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Card from "./components/Card";
 
 const cardImages = [
-  { src: "/img/helmet-1.png", matched: false },
-  { src: "/img/potion-1.png", matched: false },
-  { src: "/img/ring-1.png", matched: false },
-  { src: "/img/scroll-1.png", matched: false },
-  { src: "/img/shield-1.png", matched: false },
-  { src: "/img/sword-1.png", matched: false },
+  { src: "/img/1.jpg", matched: false },
+  { src: "/img/2.jpg", matched: false },
+  { src: "/img/3.jpg", matched: false },
+  { src: "/img/4.jpg", matched: false },
+  { src: "/img/5.jpg", matched: false },
+  { src: "/img/6.jpg", matched: false },
+  { src: "/img/7.jpg", matched: false },
+  { src: "/img/8.jpg", matched: false },
+  { src: "/img/9.jpg", matched: false },
 ];
 
 function App() {
@@ -17,10 +20,16 @@ function App() {
   const [choiceOne, setChoiceOne] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
 
+  useEffect(() => {
+    shuffleCards();
+  }, []);
+
   const shuffleCards = () => {
     const shuffledCards = [...cardImages, ...cardImages]
       .sort(() => Math.random() - 0.5)
       .map((card) => ({ ...card, id: Math.random() }));
+    setChoiceOne(null);
+    setChoiceTwo(null);
     setCards(shuffledCards);
     setTurns(0);
   };
@@ -56,7 +65,12 @@ function App() {
   return (
     <div className="App">
       <h1>Magic Match</h1>
-      <button onClick={shuffleCards}>New Game</button>
+      <div className="game-items">
+        <p className="turns">Turns: {turns} </p>
+        <button className="button" onClick={shuffleCards}>
+          New Game
+        </button>
+      </div>
       <div className="card-grid">
         {cards.map((card) => (
           <Card
