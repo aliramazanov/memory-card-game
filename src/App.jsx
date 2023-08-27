@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import "./App.css";
+import Confetti from "react-confetti";
 import Card from "./components/Card";
+import "./App.css";
 
 const cardImages = [
   { src: "/img/1.jpg", matched: false },
@@ -19,10 +20,20 @@ function App() {
   const [turns, setTurns] = useState(0);
   const [choiceOne, setChoiceOne] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
+  const [allCardsMatched, setAllCardsMatched] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {
     shuffleCards();
   }, []);
+
+  useEffect(() => {
+    if (cards.every((card) => card.matched)) {
+      setShowConfetti(true);
+    } else {
+      setShowConfetti(false);
+    }
+  }, [cards]);
 
   const shuffleCards = () => {
     const shuffledCards = [...cardImages, ...cardImages]
@@ -53,6 +64,12 @@ function App() {
         )
       );
     }
+
+    const allMatched = cards.every((card) => card.matched);
+    if (allMatched) {
+      setAllCardsMatched(true);
+    }
+
     setTimeout(resetGame, 500);
   };
 
@@ -81,6 +98,13 @@ function App() {
           />
         ))}
       </div>
+      {showConfetti && (
+        <Confetti
+          width={window.innerWidth - 30}
+          height={window.innerHeight + 240}
+          numberOfPieces={150}
+        />
+      )}
     </div>
   );
 }
