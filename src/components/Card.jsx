@@ -1,8 +1,8 @@
 import "./Card.css";
 
-export default function Card({ card, handleChocie, flipped }) {
+export default function Card({ card, handleChoice, flipped }) {
   const handleClick = () => {
-    handleChocie(card);
+    handleChoice(card);
   };
 
   return (

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import Card from "./components/Card";
 
@@ -25,28 +25,27 @@ function App() {
     setTurns(0);
   };
 
-  const handleChocie = (card) => {
-    choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
+  const handleChoice = (card) => {
+    if (!choiceOne) {
+      setChoiceOne(card);
+    } else if (!choiceTwo && card !== choiceOne) {
+      setChoiceTwo(card);
+      setTimeout(() => checkForMatch(choiceOne, card), 700);
+    }
   };
 
-  useEffect(() => {
-    if (choiceOne && choiceTwo) {
-      if (choiceOne.src === choiceTwo.src) {
-        setCards((prevCards) => {
-          return prevCards.map((card) => {
-            if (card.src === choiceOne.src) {
-              return { ...card, matched: true };
-            } else {
-              return card;
-            }
-          });
-        });
-        resetGame();
-      } else {
-        resetGame();
-      }
+  const checkForMatch = (card1, card2) => {
+    if (card1.src === card2.src) {
+      setCards((prevCards) =>
+        prevCards.map((card) =>
+          card.src === card1.src || card.src === card2.src
+            ? { ...card, matched: true }
+            : card
+        )
+      );
     }
-  }, [choiceOne, choiceTwo]);
+    setTimeout(resetGame, 500);
+  };
 
   const resetGame = () => {
     setChoiceOne(null);
@@ -62,9 +61,9 @@ function App() {
         {cards.map((card) => (
           <Card
             key={card.id}
-            flipped={card === choiceOne || card === choiceOne || card.matched}
+            flipped={card === choiceOne || card === choiceTwo || card.matched}
             card={card}
-            handleChocie={handleChocie}
+            handleChoice={handleChoice}
           />
         ))}
       </div>
