@@ -8,8 +8,27 @@
   flex-direction: column;
 }
 
-.App h1 {
+h1 {
   font-size: 70px;
+  background-color: transparent;
+  user-select: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+  animation: neonGlow 3s infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes neonGlow {
+  0%,
+  100% {
+    text-shadow: 0 10px 20px rgba(255, 0, 0, 0.7);
+  }
+
+  50% {
+    text-shadow: none;
+  }
 }
 
 .button {
@@ -25,6 +44,7 @@
 
 .button:hover {
   cursor: pointer;
+  box-shadow: 0 5px 30px rgba(255, 0, 0, 0.7);
 }
 
 .card-grid {
@@ -42,6 +62,11 @@
   padding: 10px;
   color: white;
   font-size: 22px;
+  user-select: none;
+}
+
+.turns:hover {
+  box-shadow: 0 5px 30px rgba(255, 0, 0, 0.7);
 }
 
 .game-items {

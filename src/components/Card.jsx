@@ -1,4 +1,5 @@
 import "./Card.css";
+import PropTypes from "prop-types";
 
 export default function Card({ card, handleChoice, flipped }) {
   const handleClick = () => {
@@ -19,3 +20,11 @@ export default function Card({ card, handleChoice, flipped }) {
     </div>
   );
 }
+
+Card.propTypes = {
+  card: PropTypes.shape({
+    src: PropTypes.string.isRequired,
+  }).isRequired,
+  handleChoice: PropTypes.func.isRequired,
+  flipped: PropTypes.bool.isRequired,
+};
