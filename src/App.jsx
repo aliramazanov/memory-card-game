@@ -50,7 +50,7 @@ function App() {
       setChoiceOne(card);
     } else if (!choiceTwo && card !== choiceOne) {
       setChoiceTwo(card);
-      setTimeout(() => checkForMatch(choiceOne, card), 700);
+      setTimeout(() => checkForMatch(choiceOne, card), 1000);
     }
   };
 
